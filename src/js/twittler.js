@@ -20,7 +20,7 @@ Allow the user to click on a username to see that user's timeline.
 $(document).ready(function(){
   var $tweetColumnHead = document.getElementById('tweetColumnHead');
 
-  var $updateButton = $('<button type="button" id="updateButton">Update</button>');
+  var $updateButton = $('<button type="button" id="updateButton">Update Feed</button>');
   $updateButton.prependTo($tweetColumnHead);
   $('#updateButton').on('click', function() {
     buildTweets();
@@ -48,6 +48,7 @@ var buildTweets = function() {
 var renderTweets = function(){
   var $tweetColumn = document.getElementById('tweetColumn');
   $(tweetColumn).empty();
+  $('#updateButton').text('Update Feed');
   tweetArray = tweetArray.slice(0, 15);
 
   tweetArray.forEach((tweet,idx) => {
@@ -116,6 +117,7 @@ var sortTweets = function(array){
 
 var setUser = function(){
   var clickedUser=$(this).text();
+  $('#updateButton').text('Go Back');
   renderUserTweets(clickedUser);
 };
 
@@ -123,3 +125,4 @@ buildTweets();
 renderTweets();
 
 });
+
