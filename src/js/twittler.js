@@ -26,6 +26,8 @@ $(document).ready(function(){
   var $updateButton = $('<button type="button" id="updateButton">Update</button>');
   $updateButton.prependTo($twitColumnHead);
   $('#updateButton').on('click', function() {
+    clearTwits();
+    // window.location.reload(true);
     buildTwits();
   });
 
@@ -39,9 +41,14 @@ $(document).ready(function(){
 
 });
 
+// streams.home is an array of twit objects {created_at, message, user}
+// window.users is an array of user names (strings)
+// streams.users is an object { user: [the users messages as {}] }
 var buildTwits = function() {
   var $twitColumn = document.getElementById('twitColumn');
   var index = streams.home.length - 1;
+  $(twitColumn).empty();
+  streams.home = sortTweets(streams.home, 'created_at');
   while(index >= 8){
     var tweet = streams.home[index];
     var $twitTime = tweet.created_at.toLocaleTimeString();
@@ -54,9 +61,13 @@ var buildTwits = function() {
 
 function clearTwits() {
   var $twitColumn = document.getElementById('twitColumn');
-  window.location.reload(true);
+  $(twitColumn).empty();
+  // window.location.reload(true);
 }
 
+function sortTweets(array, sortKey) {
+  return array.sort((a, b) => a.sortKey - b.sortKey);
+}
 
 // function setUser(){
 //   var clickedUser=$(this).text();
